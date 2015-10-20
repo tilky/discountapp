@@ -1,3 +1,4 @@
+require 'app/services/shopify_intergration.rb'
 class AccountsController < ApplicationController
   before_action :set_account, only: [:show, :edit, :update, :destroy]
 
@@ -6,10 +7,14 @@ class AccountsController < ApplicationController
   def index
     @accounts = Account.all
   end
-
+  def test_connection
+	@account = Account.find(params[:id])
+	ac = ShopifyIntegration.new(@account.shopify_account_url,@account.shopify_password,@account.shop)
+  end
   # GET /accounts/1
   # GET /accounts/1.json
   def show
+	@account = Account.find(params[:id])
   end
 
   # GET /accounts/new
@@ -30,12 +35,15 @@ class AccountsController < ApplicationController
       if @account.save
         format.html { redirect_to @account, notice: 'Account was successfully created.' }
         format.json { render :show, status: :created, location: @account }
+		
       else
         format.html { render :new }
         format.json { render json: @account.errors, status: :unprocessable_entity }
       end
     end
   end
+  
+
 
   # PATCH/PUT /accounts/1
   # PATCH/PUT /accounts/1.json
