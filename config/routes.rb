@@ -1,9 +1,17 @@
 Rails.application.routes.draw do
+  get 'webhook/index'
+
+  resources :orders
+
+  get 'dashboard/index'
+
+  devise_for :users
   resources :accounts do
 	member do
 	get 'test_connection'
 	end
   end	
+  root 'dashboard#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

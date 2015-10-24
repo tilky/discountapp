@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  number: MyString
+  email: MyString
+  first_name: MyString
+  last_name: MyString
+  shopify_order_id: 1
+  order_date: 2015-10-23 16:11:55
+  total: 1.5
+  line_item_count: 1
+  financial_status: MyString
+
+two:
+  number: MyString
+  email: MyString
+  first_name: MyString
+  last_name: MyString
+  shopify_order_id: 1
+  order_date: 2015-10-23 16:11:55
+  total: 1.5
+  line_item_count: 1
+  financial_status: MyString

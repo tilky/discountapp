@@ -1,6 +1,6 @@
-require 'app/services/shopify_intergration.rb'
+require File.expand_path('../../services/shopify_integration_private',__FILE__)
 class AccountsController < ApplicationController
-  before_action :set_account, only: [:show, :edit, :update, :destroy]
+  before_action :set_account, only: [:show, :edit, :update, :destroy, :test_connection]
 
   # GET /accounts
   # GET /accounts.json
@@ -8,8 +8,26 @@ class AccountsController < ApplicationController
     @accounts = Account.all
   end
   def test_connection
-	@account = Account.find(params[:id])
-	ac = ShopifyIntegration.new(@account.shopify_account_url,@account.shopify_password,@account.shop)
+    ShopifyPrivate.new(api_key: @account.shopify_api_key,
+                           shared_secret: @account.shopify_shared_secret,
+                           url: @account.shopify_account_url,
+                           password: @account.shopify_password).connect()
+			begin 
+			shop = ShopifyAPI::Shop.current
+			rescue => ex
+			@message = ex.message
+			end
+			if shop.present?
+			respond_to do |format|
+			format.html { redirect_to @account, notice: "Successfully connected to #{shop.name}"}
+			format.json {render json, "Successfully Connected to #{shop.name}"}
+			end
+			else
+			respond_to do |format|
+			format.html {redirect_to @account, notice: "Failed bomba #{@message}"}
+			format.json { render json: "Unable to Connect: #{@message}", status: :unprocessable_entity }
+			end
+			end
   end
   # GET /accounts/1
   # GET /accounts/1.json
