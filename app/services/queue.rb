@@ -2,7 +2,7 @@ class Queue
 	def initialize
 		@store = Array.new
 	end
-	def enqueue
+	def enqueue(element)
 		@store.unshift(element)
         self
 	end
