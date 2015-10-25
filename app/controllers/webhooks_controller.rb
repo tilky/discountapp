@@ -26,7 +26,8 @@ class WebhooksController < ApplicationController
 	save_wbhook
 	puts "came in create"
     data = ActiveSupport::JSON.decode(request.body.read)
-    @webhook = Webhook.new(:wb_id => data["id"],:ord_cnt => data["line_items"]["quantity"].to_i, :ord_id => request.headers['X-Request-Id'] )
+ #   @webhook = Webhook.new(:wb_id => data["id"],:ord_cnt => data["line_items"]["quantity"].to_i, :ord_id => request.headers['X-Request-Id'] )
+	puts data["line_items"]["quantity"]
     if @webhook.save
 		puts "saved"
 	else
