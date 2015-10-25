@@ -56,13 +56,13 @@ class WebhooksController < ApplicationController
 		if defined? storemsg
 			storemsg.enqueue(request)
 			head :ok
-			puts storemsg.inspect
+		#	puts storemsg.inspect
 			request.body.rewind
 		else
 			storemsg = Queue.new
 			storemsg.enqueue(request)
 			head :ok
-			puts storemsg.inspect
+		#	puts storemsg.inspect
             request.body.rewind			
 	end
 	end
