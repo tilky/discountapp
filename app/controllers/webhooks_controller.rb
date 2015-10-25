@@ -25,7 +25,11 @@ class WebhooksController < ApplicationController
   def create
     data = ActiveSupport::JSON.decode(request.body.read)
     @webhook = Webhook.new(:wb_id => data["id"],:ord_cnt => data["line_items"]["quantity"], :ord_id => request.headers['X-Request-Id'] )
-    @webhook.save
+    if @webhook.save
+		puts "saved"
+	else
+		puts "failed"
+	end	
     respond_with(@webhook)
   end
 
@@ -52,11 +56,13 @@ class WebhooksController < ApplicationController
 		if defined? storemsg
 			storemsg.enqueue(request)
 			head :ok
+			puts storemsg.inspect
 			request.body.rewind
 		else
 			storemsg = Queue.new
 			storemsg.enqueue(request)
 			head :ok
+			puts storemsg.inspect
             request.body.rewind			
 	end
 	end
