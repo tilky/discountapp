@@ -1,7 +1,7 @@
 class WebhooksController < ApplicationController
   skip_before_action :verify_authenticity_token, :authenticate_user!
   before_action :set_webhook, only: [:show, :edit, :update, :destroy]
-  before_action :save_wbhook, only: [:create]
+  before_action :save_wbhook, only: [:create], :except => 'save_wbhook'
 
   respond_to :html
 
@@ -57,13 +57,11 @@ class WebhooksController < ApplicationController
 			storemsg.enqueue(request)
 			head :ok
 		#	puts storemsg.inspect
-			request.body.rewind
 		else
 			storemsg = Queue.new
 			storemsg.enqueue(request)
 			head :ok
-		#	puts storemsg.inspect
-            request.body.rewind			
+		#	puts storemsg.inspect		
 	end
 	end
 	
