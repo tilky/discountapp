@@ -61,6 +61,5 @@ class WebhooksController < ApplicationController
 			head :ok
 			create		
 	end
-	end
 	
 end
