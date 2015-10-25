@@ -1,7 +1,7 @@
 class WebhooksController < ApplicationController
   skip_before_action :verify_authenticity_token, :authenticate_user!
   before_action :set_webhook, only: [:show, :edit, :update, :destroy]
-  before_action :save_wbhook, only: [:create], :except => 'save_wbhook'
+  
 
   respond_to :html
 
@@ -23,6 +23,8 @@ class WebhooksController < ApplicationController
   end
 
   def create
+	save_wbhook
+	puts "came in create"
     data = ActiveSupport::JSON.decode(request.body.read)
     @webhook = Webhook.new(:wb_id => data["id"],:ord_cnt => data["line_items"]["quantity"], :ord_id => request.headers['X-Request-Id'] )
     if @webhook.save
@@ -53,15 +55,11 @@ class WebhooksController < ApplicationController
     end
 	
 	def save_wbhook
-		if defined? storemsg
+		    storemsg ||= Queue.new
 			storemsg.enqueue(request)
+			puts storemsg.inspect
 			head :ok
-		#	puts storemsg.inspect
-		else
-			storemsg = Queue.new
-			storemsg.enqueue(request)
-			head :ok
-		#	puts storemsg.inspect		
+			create		
 	end
 	end
 	
