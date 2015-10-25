@@ -33,7 +33,7 @@ class WebhooksController < ApplicationController
 	else
 		puts "failed"
 	end	
-    respond_with(@webhook)
+  #  respond_with(@webhook)
   end
 
   def update
@@ -56,15 +56,12 @@ class WebhooksController < ApplicationController
     end
 	
 	def save_wbhook
-		unless defined? storemsg
-		    storemsg = Queue.new
+		    storemsg ||= Queue.new
 			storemsg.enqueue(request)
-			head :ok	
-		else
-			storemsg.enqueue(request)
-			head :ok		
-		end
-					
+			respond_to do |format|
+				format.xml  { head :ok }
+				format.json { head :ok }
+			end	
 	end
 	
 end
