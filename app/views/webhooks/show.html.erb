@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Wb:</strong>
+  <%= @webhook.wb_id %>
+</p>
+
+<p>
+  <strong>Ord cnt:</strong>
+  <%= @webhook.ord_cnt %>
+</p>
+
+<p>
+  <strong>Ord:</strong>
+  <%= @webhook.ord_id %>
+</p>
+
+<p>
+  <strong>Dscnt:</strong>
+  <%= @webhook.dscnt %>
+</p>
+
+<%= link_to 'Edit', edit_webhook_path(@webhook) %> |
+<%= link_to 'Back', webhooks_path %>

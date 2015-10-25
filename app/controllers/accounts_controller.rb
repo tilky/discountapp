@@ -1,4 +1,4 @@
-require File.expand_path('../../services/shopify_integration_private',__FILE__)
+#require File.expand_path('../../services/shopify_integration_private',__FILE__)
 class AccountsController < ApplicationController
   before_action :set_account, only: [:show, :edit, :update, :destroy, :test_connection]
 
@@ -8,7 +8,7 @@ class AccountsController < ApplicationController
     @accounts = Account.all
   end
   def test_connection
-    ShopifyPrivate.new(api_key: @account.shopify_api_key,
+    ShopifyIntegrationPrivate.new(api_key: @account.shopify_api_key,
                            shared_secret: @account.shopify_shared_secret,
                            url: @account.shopify_account_url,
                            password: @account.shopify_password).connect()

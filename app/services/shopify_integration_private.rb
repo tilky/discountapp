@@ -1,4 +1,4 @@
-class ShopifyPrivate
+class ShopifyIntegrationPrivate
 	attr_accessor :api_key, :password, :url
     def initialize(params)
 		%w(api_key password url).each do |field|

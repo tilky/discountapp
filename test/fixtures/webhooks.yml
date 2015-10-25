@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  wb_id: 
+  ord_cnt: 1
+  ord_id: MyString
+  dscnt: false
+
+two:
+  wb_id: 
+  ord_cnt: 1
+  ord_id: MyString
+  dscnt: false

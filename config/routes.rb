@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  get 'webhook/index'
-
+  resources :webhooks
+  
   resources :orders
-
+  	
   get 'dashboard/index'
 
   devise_for :users
