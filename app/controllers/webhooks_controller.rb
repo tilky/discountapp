@@ -57,9 +57,8 @@ class WebhooksController < ApplicationController
 	def save_wbhook
 		    storemsg ||= Queue.new
 			storemsg.enqueue(request)
-			puts storemsg.inspect
 			head :ok
-			create		
+				
 	end
 	
 end
