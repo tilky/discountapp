@@ -1,5 +1,5 @@
 class WebhooksController < ApplicationController
-  skip_before_action :verify_authenticity_token
+  skip_before_action :verify_authenticity_token, :authenticate_user!
   before_action :set_webhook, only: [:show, :edit, :update, :destroy]
   before_action :save_wbhook, only: [:create]
 
